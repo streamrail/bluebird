@@ -12,7 +12,7 @@ function subError(nameProperty, defaultMessage, code) {
             typeof message === "string" ? message : defaultMessage);
         notEnumerableProp(this, "name", nameProperty);
         if (code) {
-            notEnumerableProp(this, "name", code);
+            notEnumerableProp(this, "code", code);
         }
         if (Error.captureStackTrace) {
             Error.captureStackTrace(this, this.constructor);

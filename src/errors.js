@@ -5,12 +5,15 @@ var util = require("./util");
 var inherits = util.inherits;
 var notEnumerableProp = util.notEnumerableProp;
 
-function subError(nameProperty, defaultMessage) {
+function subError(nameProperty, defaultMessage, code) {
     function SubError(message) {
         if (!(this instanceof SubError)) return new SubError(message);
         notEnumerableProp(this, "message",
             typeof message === "string" ? message : defaultMessage);
         notEnumerableProp(this, "name", nameProperty);
+        if (code) {
+            notEnumerableProp(this, "name", code);
+        }
         if (Error.captureStackTrace) {
             Error.captureStackTrace(this, this.constructor);
         } else {
@@ -24,7 +27,7 @@ function subError(nameProperty, defaultMessage) {
 var _TypeError, _RangeError;
 var Warning = subError("Warning", "warning");
 var CancellationError = subError("CancellationError", "cancellation error");
-var TimeoutError = subError("TimeoutError", "timeout error");
+var TimeoutError = subError("TimeoutError", "timeout error", "ETIMEDOUT");
 var AggregateError = subError("AggregateError", "aggregate error");
 try {
     _TypeError = TypeError;

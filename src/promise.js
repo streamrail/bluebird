@@ -40,17 +40,17 @@ Promise.TimeoutError = errors.TimeoutError;
 Promise.OperationalError = errors.OperationalError;
 Promise.RejectionError = errors.OperationalError;
 Promise.AggregateError = errors.AggregateError;
-var INTERNAL = Promise.__INTERNAL__ = function(){};
+var INTERNAL = Promise.__SR_INTERNAL__ = function(){};
 var APPLY = {};
 var NEXT_FILTER = {};
 var tryConvertToPromise = require("./thenables")(Promise, INTERNAL);
 var PromiseArray =
     require("./promise_array")(Promise, INTERNAL,
                                tryConvertToPromise, apiRejection, Proxyable);
-var Context = Promise.__CONTEXT = require("./context")(Promise);
+var Context = Promise.__SR_CONTEXT__ = require("./context")(Promise);
  /*jshint unused:false*/
 var createContext = Context.create;
-var debug = Promise.__DEBUG__ = require("./debuggability")(Promise, Context);
+var debug = Promise.__SR_DEBUG__ = require("./debuggability")(Promise, Context);
 var CapturedTrace = debug.CapturedTrace;
 var PassThroughHandlerContext =
     require("./finally")(Promise, tryConvertToPromise);

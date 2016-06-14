@@ -564,7 +564,9 @@ function fireRejectionEvent(name, localHandler, reason, promise) {
 
     if (name === UNHANDLED_REJECTION_EVENT) {
         if (!activeFireEvent(name, reason, promise) && !localEventFired) {
-            formatAndLogError(reason, UNHANDLED_REJECTION_HEADER);
+            if (process.env.NODE_ENV !== 'production') {
+                formatAndLogError(reason, UNHANDLED_REJECTION_HEADER);
+            }
         }
     } else {
         activeFireEvent(name, promise);
